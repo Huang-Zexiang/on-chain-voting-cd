@@ -17,7 +17,9 @@ dist.zip
 
 # env
 .env
-.env.example
+
+#configuration
+configuration.yaml
 
 # misc
 .eslintcache
