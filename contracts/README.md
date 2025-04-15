@@ -49,7 +49,7 @@ After the contracts are deployed, the contract addresses will be saved in the `[
 {
   "POWER_VOTING_FIP": "",
   "POWER_VOTING_VOTE": "",
-  "POWER_VOTING_ORCAL": ""
+  "POWER_VOTING_ORACLE": ""
 }
 ```
 **Note:** Ensure to update and securely manage these addresses for future interactions.
