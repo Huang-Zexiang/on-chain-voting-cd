@@ -4,6 +4,8 @@
 The PowerVoting-Contract consists of two contracts:
 1. **Vote Contract**: Responsible for creating proposals and conducting proposal voting.
 2. **FipEditor Contract**: Handles permission management and supports adding and deleting FipEditors through proposals.
+3. **Oracle Contract**: Supplies external data to support contract interactions, including updates like miner IDs and authorization information.
+
 
 ## Deployment and Upgrade Process
 
@@ -36,14 +38,21 @@ Run the following command to deploy the Vote contract:
 ```bash
 npx hardhat run scripts/deploy_vote.ts --network [network_name]
 ```
-3. **Contract Address Storage**
+3. **Deploy the Oracle Contract**
+   Run the following command to deploy the Oracle contract:
+```bash
+npx hardhat run scripts/deploy_oracle.ts --network [network_name]
+```
+4. **Contract Address Storage**
 After the contracts are deployed, the contract addresses will be saved in the `[network_name]_config.json` file in the `scripts` directory. The content format is as follows:
 ```json
 {
   "POWER_VOTING_FIP": "",
-  "POWER_VOTING_VOTE": ""
+  "POWER_VOTING_VOTE": "",
+  "POWER_VOTING_ORACLE": ""
 }
 ```
+**Note:** Ensure to update and securely manage these addresses for future interactions.
 
 ### Contract Upgrade
 The contracts support upgrade via the UUPS (Universal Upgradeable Proxy Standard) pattern.
@@ -56,6 +65,12 @@ npx hardhat run scripts/upgrade_fip.ts --network [network_name]
 Run the following command to upgrade the Vote contract:
 ```bash
 npx hardhat run scripts/upgrade_vote.ts --network [network_name]
+```
+
+### Test Cases
+You can run the contract's test cases using the following command:
+```bash
+npx hardhat test
 ```
 
 ## Notes
