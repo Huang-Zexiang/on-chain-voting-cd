@@ -12,11 +12,20 @@ When deploying with GitHub Actions, an SSH connection to the server is required 
 
 Add the following environment variables under **"Settings" > "Secrets and variables" > "Actions" > "Variables"**:
 
-- `BACKEND_PORT`: Backend service port
-- `BUILD_PATH`: Project path
-- `SNAPSHOT_PORT`: Snapshot service port
-- `SSH_HOST`: Host IP
-- `SSH_USERNAME`: Username
+**`BUILD_PATH`**: Enter the project path. For example:
+
+- **Name**: `BUILD_PATH`
+- **Value**: `/path/to/project`
+
+**`SSH_HOST`**: Enter the SSH host IP and port. For example:
+
+- **Name**: `SSH_HOST`
+- **Value**: `192.168.0.1:22`
+
+**`SSH_USERNAME`**: Enter the SSH username. For example:
+
+- **Name**: `SSH_USERNAME`
+- **Value**: `myuser`
 
 ![img.png](img/img.png)
 
