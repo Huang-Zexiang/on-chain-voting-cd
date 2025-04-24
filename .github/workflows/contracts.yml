@@ -18,24 +18,20 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install Dependencies
         run: |
           cd ./contracts
-          yarn install --frozen-lockfile 
-
-      - name: Install Hardhat
-        run: |
-          cd ./contracts
-          yarn add --dev @nomicfoundation/hardhat-toolbox @nomicfoundation/hardhat-chai-matchers @nomicfoundation/hardhat-network-helpers @nomicfoundation/hardhat-verify @typechain/ethers-v6 @typechain/hardhat @types/mocha hardhat-gas-reporter solidity-coverage typechain
+          npm install
 
       - name: Run Hardhat tests
         run: |
           cd ./contracts
-          yarn hardhat test
+          npx hardhat test
