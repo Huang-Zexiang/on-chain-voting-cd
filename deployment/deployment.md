@@ -105,7 +105,7 @@ docker compose up -d
 #### 1. Navigate to the Frontend Directory
 
 ```
-cd power-voting
+cd frontend
 ```
 
 #### 2. Configure Environment Variables
@@ -118,16 +118,18 @@ vim .env
 Example configuration:
 
 ```
-POWER_VOTING_MAINNET_CONTRACT_ADDRESS=<mainnet_contract_address>
-POWER_VOTING_CALIBRATION_CONTRACT_ADDRESS=<calibration_contract_address>
+VITE_POWER_VOTING_MAINNET_CONTRACT_ADDRESS =
+VITE_ORACLE_MAINNET_CONTRACT_ADDRESS =
+VITE_ORACLE_POWER_MAINNET_CONTRACT_ADDRESS =
+VITE_POWER_VOTING_FIP_MAINNET_CONTRACT_ADDRESS =
 
-ORACLE_MAINNET_CONTRACT_ADDRESS=<mainnet_oracle_contract_address>
-ORACLE_CALIBRATION_CONTRACT_ADDRESS=<calibration_oracle_contract_address>
+VITE_BASE_API_URL=
+VITE_POWER_VOTING_CALIBRATION_CONTRACT_ADDRESS = 
+VITE_ORACLE_CALIBRATION_CONTRACT_ADDRESS = 
+VITE_ORACLE_POWER_CALIBRATION_CONTRACT_ADDRESS = 
+VITE_POWER_VOTING_FIP_CALIBRATION_CONTRACT_ADDRESS = 
 
-ORACLE_POWER_MAINNET_CONTRACT_ADDRESS=<mainnet_oracle_power_contract_address>
-ORACLE_POWER_CALIBRATION_CONTRACT_ADDRESS=<calibration_oracle_power_contract_address>
-
-WALLET_CONNECT_ID=43a5e091da6b7d42e521c6cce175bc94 
+VITE_WALLET_CONNECT_ID =
 ```
 
 #### 3. Configure Nginx
@@ -141,40 +143,34 @@ Example configuration:
 
 ```
 server {
-    root /voting/dev/dist;
-    index index.html index.htm index.nginx-debian.html;
-    access_log /voting/access.log;
+    listen 80;
+
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+
+    index index.html;
 
     location / {
-        try_files $uri /index.html;
+        try_files $uri $uri/ /index.html;
     }
 
-    location /api {
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass { BACKEND_HOST }/power_voting/api;
-    }
-
-    location /rpc/v1 {
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass { RPC_HOST };
-        add_header Access-Control-Allow-Origin *;
-        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT";
-        add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept";
-        proxy_hide_header Content-Type;
-        add_header Content-Type application/json;
-
-        if ($request_method = 'OPTIONS') {
-            return 204;
-        }
-    }
-
-    listen [::]:{ LISTEN_PORT } ipv6only=on;
-    listen { LISTEN_PORT };
 }
+
+```
+#### 3. Modify the Configuration File
+
+```
+mv configuration.yaml.example configuration.yaml
+vim configuration.yaml
+```
+
+Example configuration:
+
+```
+server:
+  port: 80
+
 ```
 
 ### 5.2 Backend Configuration
