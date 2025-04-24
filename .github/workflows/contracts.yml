@@ -18,20 +18,23 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
         run: |
           cd ./contracts
-          npm install
+          yarn install --frozen-lockfile 
 
+      - name: Install Hardhat
+        run: |
+          cd ./contracts
+          npm install
       - name: Run Hardhat tests
         run: |
           cd ./contracts
-          npx hardhat test
+          yarn hardhat test
