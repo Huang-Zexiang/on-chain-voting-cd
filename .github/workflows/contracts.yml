@@ -28,7 +28,12 @@ jobs:
       - name: Install Hardhat
         run: |
           cd ./contracts
-          yarn install 
+          yarn install --frozen-lockfile 
+
+      - name: Install Hardhat
+        run: |
+          cd ./contracts
+          yarn add --dev hardhat typescript ts-node @types/node
 
       - name: Run Hardhat tests
         run: |
