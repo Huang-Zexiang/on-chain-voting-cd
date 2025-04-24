@@ -24,8 +24,7 @@ jobs:
       - name: Install Hardhat
         run: |
           cd ./contracts
-          yarn install
-          yarn add --dev hardhat@latest
+          yarn add --dev hardhat typescript
 
       - name: Run Hardhat tests
         run: |
