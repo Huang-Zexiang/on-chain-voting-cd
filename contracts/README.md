@@ -66,6 +66,11 @@ Run the following command to upgrade the Vote contract:
 ```bash
 npx hardhat run scripts/upgrade_vote.ts --network [network_name]
 ```
+- **Upgrade the Oracle Contract**
+Run the following command to upgrade the Oracle contract:
+```bash
+npx hardhat run scripts/upgrade_oracle.ts --network [network_name]
+```
 
 ### Test Cases
 You can run the contract's test cases using the following command:
@@ -73,6 +78,55 @@ You can run the contract's test cases using the following command:
 npx hardhat test
 ```
 
-## Notes
+### Script Descriptions
+
+Here’s a brief overview of the available scripts in the `scripts` directory:
+
+#### `check.ts`
+
+- **Purpose**: Performs checks on various contract parameters or statuses.
+
+#### `deploy_powers.ts`
+
+- **Purpose**: Deploys the `Powers` contract, which handles the logic related to power management within the voting system.
+
+#### `deploy_fip.ts`
+
+- **Purpose**: Deploys the `FipEditor` contract. This contract handles permission management and supports the addition/removal of FipEditors.
+
+#### `deploy_vote.ts`
+
+- **Purpose**: Deploys the `Vote` contract. This contract manages the creation of proposals and the process of voting on those proposals.
+
+#### `deploy_oracle.ts`
+
+- **Purpose**: Deploys the `Oracle` contract. The Oracle contract provides external data, such as miner IDs and other relevant information.
+
+#### `upgrade_fip.ts`
+
+- **Purpose**: Upgrades the `FipEditor` contract to a new implementation using the UUPS pattern.
+
+#### `upgrade_vote.ts`
+
+- **Purpose**: Upgrades the `Vote` contract to a new implementation using the UUPS pattern.
+
+#### `upgrade_oracle.ts`
+
+- **Purpose**: Upgrades the `Oracle` contract to a new implementation using the UUPS pattern.
+
+#### `update_fipetidor_address.ts`
+
+- **Purpose**: Updates the address of the FipEditor contract. Typically used after contract upgrades or re-deployments.
+
+#### `utils.ts`
+
+- **Purpose**: Contains utility functions that can be used across different scripts, such as address validation or data formatting.
+
+#### `constant.ts`
+
+- **Purpose**: Stores constant values and configurations used throughout the scripts (e.g., contract addresses, network names).
+
+### Notes
+
 - Replace `[network_name]` with the actual network name (e.g., `filecoin_testnet`, `filecoin_mainnet`) when running the deployment and upgrade commands.
 - Ensure that the private keys in the `.env` file are kept secure and not exposed.
