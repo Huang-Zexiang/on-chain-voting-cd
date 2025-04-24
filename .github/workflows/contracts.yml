@@ -12,3 +12,21 @@ on:
 env:
   FOUNDRY_PROFILE: ci
 
+jobs:
+  check-powervoting-contracts:
+    name: hardhat project
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Hardhat
+        run: |
+          cd ./contracts
+          yarn add --dev hardhat@latest
+
+      - name: Run Hardhat tests
+        run: |
+          cd ./contracts
+          yarn hardhat test
