@@ -47,7 +47,10 @@ contract PowerVotingFipEditor is
     mapping(uint256 => FipEditorProposal) idToFipEditorProposal;
     // Set to store IDs of  proposals id
     EnumerableSet.UintSet proposalIdSet;
-
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
+    }
     /**
      * @notice Initializes the contract by setting up UUPS upgrade ability and ownership.
      */
@@ -179,9 +182,6 @@ contract PowerVotingFipEditor is
         proposal.proposalId = fipEditorProposalId;
         proposal.proposalType = fipEditorProposalType;
 
-        // creating a proposal defaults to voting on the proposal
-        voteFipEditorProposal(fipEditorProposalId);
-
         //emit create event
         FipEditorProposalCreateInfo
             memory eventInfo = FipEditorProposalCreateInfo({
@@ -193,6 +193,9 @@ contract PowerVotingFipEditor is
             });
 
         emit FipEditorProposalCreateEvent(eventInfo);
+
+        // creating a proposal defaults to voting on the proposal
+        voteFipEditorProposal(fipEditorProposalId);
     }
 
     /**

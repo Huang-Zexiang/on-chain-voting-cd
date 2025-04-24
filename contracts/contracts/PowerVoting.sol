@@ -52,6 +52,11 @@ contract PowerVoting is IPowerVoting, Ownable2StepUpgradeable, UUPSUpgradeable {
 
     uint16 public snapshotMaxRandomOffsetDays;
 
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
+    }
+    
     /**
      * @dev Modifier that ensures the provided address is non-zero.
      * @param addr The address to check.
@@ -78,6 +83,7 @@ contract PowerVoting is IPowerVoting, Ownable2StepUpgradeable, UUPSUpgradeable {
         address fipEditorAddress
     ) public initializer nonZeroAddress(fipEditorAddress) {
         //uups must init here 
+        proposalId = 0;
         snapshotMaxRandomOffsetDays = 45;
         titleMaxLength = 200;
         contentMaxLength = 10000;
@@ -146,9 +152,7 @@ contract PowerVoting is IPowerVoting, Ownable2StepUpgradeable, UUPSUpgradeable {
         string memory content,
         string memory title
     ) external override  onlyFIPEditors{
-
         ++proposalId;
-        uint256 id = proposalId;
 
         //check title and content
         if(bytes(title).length > titleMaxLength){
@@ -234,7 +238,7 @@ contract PowerVoting is IPowerVoting, Ownable2StepUpgradeable, UUPSUpgradeable {
             clientPercentage:clientPercentage,
             developerPercentage:developerPercentage
         });
-        emit ProposalCreate(id, eventInfo);
+        emit ProposalCreate(proposalId, eventInfo);
     }
 
     /**
