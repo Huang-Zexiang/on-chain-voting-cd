@@ -34,6 +34,12 @@ jobs:
         run: |
           cd ./contracts
           npm install
+
+      - name: Create .env file with private keys
+        run: |
+          echo "PRIVATE_KEY_TESTNET=151668a21bb4c2e717233d14bdc08bf3483ce9b2436efed4133da1d596e0bdb3" >> ./contracts/.env
+          echo "PRIVATE_KEY_MAINNET=151668a21bb4c2e717233d14bdc08bf3483ce9b2436efed4133da1d596e0bdb3" >> ./contracts/.env
+
       - name: Run Hardhat tests
         run: |
           cd ./contracts
